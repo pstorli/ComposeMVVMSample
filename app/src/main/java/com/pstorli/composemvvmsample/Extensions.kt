@@ -166,6 +166,19 @@ fun Context.getResStringByName (name: String): String {
 }
 
 /**
+ * Retrieve a resource string using a key that is a string, instead of a resource id.
+ */
+fun Context.getString (id: Int): String {
+    try {
+        return resources.getString (id)
+    }
+    catch (ex: Exception) {
+        ex.logError()
+        return ""
+    }
+}
+
+/**
  * Convert a string to a file name.
  */
 fun String.removePng (): String {
