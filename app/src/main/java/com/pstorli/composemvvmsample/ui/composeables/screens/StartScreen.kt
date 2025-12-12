@@ -29,8 +29,8 @@ fun StartScreen (viewModel: ViewModel, modifier: Modifier = Modifier)
 
             // Handle button text and button backgriound color
             colors = ButtonDefaults.buttonColors (
-                contentColor    = TEXT_COLOR,                      // text
-                containerColor  = Color (viewModel.buttonColor)    // background
+                contentColor    = TEXT_COLOR,                            // text
+                containerColor  = Color (viewModel.buttonColor.value)    // background
 
             ),
             contentPadding  = ButtonDefaults.ButtonWithIconContentPadding)

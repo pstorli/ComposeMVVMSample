@@ -99,15 +99,14 @@ object Consts {
     }
 
     // *********************************************************************************************
-    // More helper functions
+    // Some Random Functions :) Pete
     // *********************************************************************************************
-
 
     /**
      * Return random num between 1 and 100
      */
-    fun rndNum (): Int {
-        return rndNum (1, 100)
+    fun rndHundred (): Int {
+        return rndNum (1,100)
     }
 
     /**
@@ -115,5 +114,18 @@ object Consts {
      */
     fun rndNum (start:Int, end:Int): Int {
         return (start..end).random()
+    }
+
+    /**
+     * Create a random light color, above  128-256
+     * each red, green and blue value4 above 128
+     */
+    fun randomLightColor (): Color
+    {
+        val red     = rndNum (128, 255)
+        val green   = rndNum (128, 255)
+        val blue    = rndNum (128, 255)
+
+        return Color (red, green, blue)
     }
 }
