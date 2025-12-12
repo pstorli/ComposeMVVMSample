@@ -1,8 +1,9 @@
 package com.pstorli.composemvvmsample.util
 
 import android.util.Log
-import androidx.compose.ui.unit.Dp
-import androidx.compose.ui.unit.dp
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.unit.TextUnit
+import androidx.compose.ui.unit.sp
 
 /**
  * The main reason to use constants, is
@@ -23,11 +24,11 @@ object Consts {
     // Vars
     // *********************************************************************************************
 
-    val TAG_NAME                            = "Word Drop"
+    val TAG_NAME                                = "ComposeMVVMSample"
 
-    val SQ_SZ: Dp = 32.dp
+    val FONT_SIZE   : TextUnit                  = 28.sp
 
-    val TOP                                 = 64.dp
+    val TEXT_COLOR                              = Color.Black
 
     // *********************************************************************************************
     // Log helper functions

@@ -16,6 +16,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import com.pstorli.composemvvmsample.util.Consts.TEXT_COLOR
 import com.pstorli.pokerpic.ui.composeables.core.Pic
 
 val DEFAULT_ELEVATION_VAL_DP            = 10.dp
@@ -32,9 +33,9 @@ fun OutlinedButton (
     name: String = NO_TEXT,
     resId: Int=ZERO,
     imageSizeDp: Dp?=null,
-    textColor: Color = if(isSystemInDarkTheme()) Color.White else Color.Black,
+    textColor: Color = if(isSystemInDarkTheme()) Color.White else TEXT_COLOR,
     tintColor: Color=Color.Black,
-    backColor: Color=if(isSystemInDarkTheme()) Color.Black else Color.White,
+    backColor: Color=if(isSystemInDarkTheme()) TEXT_COLOR else Color.White,
     borderColor: Color=MaterialTheme.colorScheme.outline,
     onClick: (Int) -> Unit) {
 

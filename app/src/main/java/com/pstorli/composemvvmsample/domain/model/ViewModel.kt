@@ -2,6 +2,9 @@ package com.pstorli.composemvvmsample.domain.model
 
 import android.app.Application
 import android.graphics.Color
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.setValue
 import androidx.lifecycle.AndroidViewModel
 import com.pstorli.composemvvmsample.R
 import com.pstorli.composemvvmsample.util.Prefs
@@ -11,84 +14,39 @@ class ViewModel (val app: Application) : AndroidViewModel (app)
     // /////////////////////////////////////////////////////////////////////////////////////////////
     // Vars
     // /////////////////////////////////////////////////////////////////////////////////////////////
-    // Whether or not the update trhread is running or not.
-    private var running         = false
+    var running by mutableStateOf(false)
+        private set
 
-    private var prefs           = Prefs(app) // Preferences, initialize first
+    @Suppress("unused")
+    var prefs           = Prefs(app) // Preferences, initialize first
 
-    // The button color.
-    private var buttonColor     = Color.GREEN
+    // The button background color.
+    var buttonColor by mutableStateOf(Color.GREEN)
+        private set
 
     // The button text.
-    private var buttonText      = app.resources.getText(R.string.stop).toString()
+    var buttonText by mutableStateOf(app.resources.getText(R.string.start).toString())
+        private set
 
     // /////////////////////////////////////////////////////////////////////////////////////////////
-    // Getters and Setters
+    // Functions
     // /////////////////////////////////////////////////////////////////////////////////////////////
-
-    /**
-     * Are we running?
-     */
-    fun isRunning (): Boolean
-    {
-        return running
-    }
 
     /**
      * Toggle running
      */
     fun toggleRunning ()
     {
-        setRunning (!isRunning ())
-    }
-
-    /**
-     * Set the running state.
-     */
-    fun setRunning (isRunning: Boolean = false) {
-        this.running = isRunning
+        running = !running
 
         // Are we running?
-        if (isRunning) {
-            setButtonText (app.getText(R.string.stop).toString())
+        if (running) {
+            buttonText = app.getText(R.string.stop).toString()
+            buttonColor = Color.RED
         }
         else {
-            setButtonText (app.getText(R.string.start).toString())
+            buttonText = app.getText(R.string.start).toString()
+            buttonColor = Color.GREEN
         }
     }
-
-    /**
-     * Prefs
-     */
-    fun getPrefs(): Prefs {
-        return prefs
-    }
-
-    fun setPrefs(prefs: Prefs) {
-        this.prefs = prefs
-    }
-
-    /**
-     * Button Color
-     */
-    fun getButtonColor(): Int {
-        return buttonColor
-    }
-
-    fun setButtonColor(buttonColor: Int) {
-        this.buttonColor = buttonColor
-    }
-
-    /**
-     * Button Text
-     */
-    fun getButtonText (): String {
-        return buttonText
-    }
-
-    fun setButtonText (buttonText: String) {
-        this.buttonText = buttonText
-    }
-
-
 }
