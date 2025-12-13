@@ -1,0 +1,1 @@
+This package, domain, is for app specific data classes

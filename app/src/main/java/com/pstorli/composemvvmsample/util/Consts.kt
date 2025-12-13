@@ -24,11 +24,17 @@ object Consts {
     // Vars
     // *********************************************************************************************
 
-    val TAG_NAME                                = "ComposeMVVMSample"
+    val TAG_NAME                                = "MyConsole"
+
+    val VERBOSE                                 = false
 
     val FONT_SIZE   : TextUnit                  = 28.sp
 
     val TEXT_COLOR                              = Color.Black
+
+    val MIN_DELAY                               = 333
+
+    val MAX_DELAY                               = 1333
 
     // *********************************************************************************************
     // Log helper functions
@@ -89,6 +95,20 @@ object Consts {
      */
     fun logInfo(tag: String, msg: String) {
         Log.i(tag, msg)
+    }
+
+    /**
+     * Log an info message.
+     */
+    fun logVerbose (msg: String) {
+        if (VERBOSE) System.out.println (TAG_NAME + " " + msg)
+    }
+
+    /**
+     * Log an info message.
+     */
+    fun logVerbose (tag: String, msg: String) {
+        if (VERBOSE) Log.i(tag, msg)
     }
 
     /**

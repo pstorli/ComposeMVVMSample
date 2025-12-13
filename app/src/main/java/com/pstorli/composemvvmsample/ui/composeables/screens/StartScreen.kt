@@ -1,5 +1,6 @@
 package com.pstorli.composemvvmsample.ui.composeables.screens
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.Button
@@ -9,22 +10,23 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import com.pstorli.composemvvmsample.domain.model.ViewModel
+import com.pstorli.composemvvmsample.model.ViewModel
 import com.pstorli.composemvvmsample.util.Consts.FONT_SIZE
 import com.pstorli.composemvvmsample.util.Consts.TEXT_COLOR
 
 @Composable
 fun StartScreen (viewModel: ViewModel, modifier: Modifier = Modifier)
 {
-    // Make button appear cenetr scrteen.
+    // Make button appear center screen.
     Box (
-        modifier = Modifier.fillMaxSize(),
-        contentAlignment = Alignment.Center)
+        // Note, we set the background window color here.
+        modifier             = Modifier.fillMaxSize().background (viewModel.backColor),
+        contentAlignment     = Alignment.Center)
     {
         Button(
             // Toggle running state when clicked
             onClick = {
-                viewModel.toggleRunning()
+                viewModel.vh.toggleRunning()
             },
 
             // Handle button text and button backgriound color

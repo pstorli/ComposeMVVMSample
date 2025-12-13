@@ -11,7 +11,6 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.TextUnit
 import com.pstorli.composemvvmsample.logError
-import com.pstorli.composemvvmsample.logInfo
 
 @Composable
 fun TextLinks (
@@ -25,8 +24,6 @@ fun TextLinks (
     fontSize: TextUnit = TextUnit.Unspecified,
     clicked:(result:String)->Unit={})
 {
-    "AssetHelper.loadFileMap".logInfo()
-
     val annotatedString = buildAnnotatedString {
         append(fullText)
 

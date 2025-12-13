@@ -34,7 +34,7 @@ android {
         targetCompatibility = JavaVersion.VERSION_11
     }
     kotlinOptions {
-        jvmTarget = "11"
+        jvmTarget = JavaVersion.VERSION_11.toString()
     }
     buildFeatures {
         compose = true
@@ -61,4 +61,7 @@ dependencies {
 
     // To display Images from URL
     implementation("io.coil-kt:coil-compose:2.7.0")
+
+    // Coroutine support
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.3.9")
 }

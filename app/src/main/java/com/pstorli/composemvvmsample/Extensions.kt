@@ -9,6 +9,7 @@ import android.content.Context
 import android.content.res.Configuration
 import android.media.MediaPlayer
 import androidx.compose.ui.graphics.Color
+import com.pstorli.composemvvmsample.model.ViewModel
 import com.pstorli.composemvvmsample.util.Consts
 
 // *********************************************************************************************
@@ -75,6 +76,14 @@ fun String.logWarning (tag: String)
 fun String.logInfo ()
 {
     Consts.logInfo (this)
+}
+
+/**
+ * Log an info message.
+ */
+fun String.logVerbose ()
+{
+    Consts.logVerbose (this)
 }
 
 /**
@@ -166,6 +175,13 @@ fun Context.getResStringByName (name: String): String {
 }
 
 /**
+* Retrieve a resource string using a key that is a string, instead of a resource id.
+*/
+fun ViewModel.getString (id: Int): String {
+    return app.getString (id)
+}
+
+/**
  * Retrieve a resource string using a key that is a string, instead of a resource id.
  */
 fun Context.getString (id: Int): String {
@@ -193,10 +209,10 @@ fun Context.playSound (soundRawId: Int) {
         // Create it.
         var mp: MediaPlayer? = MediaPlayer.create (this, soundRawId)
         mp?.let {
-            if (mp?.isPlaying == true) {
+            if (mp.isPlaying == true) {
                 // Stop, drop and roll.
-                mp?.stop()
-                mp?.release()
+                mp.stop()
+                mp.release()
 
                 // Then re-create it.
                 mp = MediaPlayer.create(this, soundRawId)
@@ -211,7 +227,12 @@ fun Context.playSound (soundRawId: Int) {
     }
 }
 
-
+/**
+ * Return color as rgb string.
+ */
+fun Color.color (): String {
+    return (red.toString() +","+ green.toString() +","+ blue.toString())
+}
 
 
 
