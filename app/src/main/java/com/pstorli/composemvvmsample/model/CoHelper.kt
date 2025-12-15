@@ -6,6 +6,7 @@ import com.pstorli.composemvvmsample.logError
 import com.pstorli.composemvvmsample.logInfo
 import com.pstorli.composemvvmsample.logVerbose
 import com.pstorli.composemvvmsample.logWarning
+import com.pstorli.composemvvmsample.repo.Repo
 import com.pstorli.composemvvmsample.util.Consts
 import com.pstorli.composemvvmsample.util.Consts.MAX_DELAY
 import com.pstorli.composemvvmsample.util.Consts.MIN_DELAY
@@ -22,7 +23,10 @@ class CoHelper (var viewModel: ViewModel)
 {
     // Our continual background task.
     private var bj: Job?    = null
-    private var done        = false
+
+    // Used to request long running data
+    // Repository stuff, do long running things in the background.
+    private var repo         = Repo (viewModel)
 
     // /////////////////////////////////////////////////////////////////////////////////////////////
     // These routines cause coroutines to be run in background
@@ -36,17 +40,17 @@ class CoHelper (var viewModel: ViewModel)
      * Get a color on the background thread.
      *
      * To simulate how to have a long running
-     * routine not hang up the uio threead.
+     * routine not hang up the ui threead.
      */
     @Suppress("unused")
-    fun getButtonColorInBackground() {
-        "getButtonColorInBackground() started ... ".logVerbose()
+    fun getWordColorInBackground (word: String) {
+        "getWordColorInBackground() started ... ".logVerbose()
 
         viewModel.viewModelScope.launch {
             // Get the game, the whole enchilada.
             val fetchColorDeferred = viewModel.viewModelScope.async (Dispatchers.Main)
             {
-                viewModel.repo.getColorOfWord (viewModel.buttonText)
+                repo.getColorOfWord (word)
             }
 
             // Wait for it. new button color
@@ -58,8 +62,8 @@ class CoHelper (var viewModel: ViewModel)
                 // Update the button color.
                 viewModel.buttonColor = color
 
-                "getButtonColorInBackground() Button Color = ${viewModel.buttonColor.color()} ".logInfo()
-                "getButtonColorInBackground() finished.".logVerbose()
+                "getWordColorInBackground() Button Color = ${viewModel.buttonColor.color()} ".logInfo()
+                "getWordColorInBackground() finished.".logVerbose()
 
             }
         }
@@ -76,10 +80,16 @@ class CoHelper (var viewModel: ViewModel)
      */
     @Suppress("unused")
     fun startBackgroundTask () {
-        // Only launch if it's not already active
-        if (bj?.isActive?:false) return
+        // Stop it!
+        if (!viewModel.running) {
+            bj = null
+            return
+        }
 
-        done = false
+        // Already active?
+        if (bj?.isActive?:false) {
+            return
+        }
 
         "BackgroundTask started.".logVerbose()
         "BackgroundTask Setting button color ...".logVerbose()
@@ -91,8 +101,7 @@ class CoHelper (var viewModel: ViewModel)
             do {
                 try {
                     // Are we done?
-                    done = viewModel.running && bj?.isActive ?: false
-                    if (!done) {
+                    if (viewModel.running) {
                         // Perform the background work here.
                         // NOTE: Any suspending function (like delay) checks for cancellation automatically.
                         "BackgroundTask running...".logVerbose()
@@ -114,19 +123,19 @@ class CoHelper (var viewModel: ViewModel)
                     }
                 }
                 catch (e: CancellationException) {
-                    done = true
                     // Re-throw CancellationException to propagate cancellation
                     "BackgroundTask CancellationException in background task: ${e.message}".logError(e)
+                    viewModel.running = false
                     throw e
                 }
                 catch (e: Exception) {
-                    done = true
+                    viewModel.running = false
                     // Handle other exceptions (e.g., network error)
                     "BackgroundTask Error in background task: ${e.message}".logError(e)
                     "BackgroundTask Delaying 5000L millis".logVerbose()
                     delay(5000L) // Wait before retrying
                 }
-            } while (!done)
+            } while (viewModel.running)
 
             // null out task, will re-create if startBackgroundTask is called again.
             bj = null

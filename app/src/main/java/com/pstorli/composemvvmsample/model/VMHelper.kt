@@ -9,7 +9,7 @@ class VMHelper (var viewModel: ViewModel)
     // /////////////////////////////////////////////////////////////////////////////////////////////
 
     // Used to run coroutines in the background.
-    protected var ch   = CoHelper (viewModel)
+    var ch   = CoHelper (viewModel)
 
     // /////////////////////////////////////////////////////////////////////////////////////////////
     // Functions
@@ -22,25 +22,30 @@ class VMHelper (var viewModel: ViewModel)
         // toggle runninmg state
         viewModel.running = !viewModel.running
 
-        // Make sure that background thread running.
-        // This task throws out random colors at random times.
-        // In this app it is simulatinmg outside data trickling in.
-        ch.startBackgroundTask()
+        // Are we running?
+        var word: String
 
         // Are we running?
-        if (!viewModel.running) {
-            // Pressing button now stops background color task.
-            val stop = viewModel.app.getText(R.string.stop).toString()
-            viewModel.buttonText  = stop
-            viewModel.buttonColor = viewModel.repo.getColorOfWord(stop)
-        } else {
+        if (viewModel.running) {
+            // Start color blaster class
+
+            // Make sure that background thread running.
+            // This task throws out random colors at random times.
+            // In this app it is simulatinmg outside data trickling in.
+            ch.startBackgroundTask()
+
             // Pressing button now starts background color task.
-            val start = viewModel.app.getText(R.string.start).toString()
-            viewModel.buttonText  = start
-            viewModel.buttonColor = viewModel.repo.getColorOfWord(start)
+            word = viewModel.app.getText(R.string.stop).toString()
+        }
+        else {
+            // Pressing button now stops background color task.
+            word = viewModel.app.getText(R.string.start).toString()
         }
 
-        // set button background color in a background thread.
-        ch.getButtonColorInBackground()
+        // set the button text.
+        viewModel.buttonText  = word
+
+        // get word color in background.
+        ch.getWordColorInBackground (word)
     }
 }
