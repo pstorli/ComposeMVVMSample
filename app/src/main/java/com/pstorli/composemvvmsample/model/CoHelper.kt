@@ -57,12 +57,15 @@ class CoHelper (var viewModel: ViewModel)
             val color = fetchColorDeferred.await()
 
             // Go back contains ui thread.
+            // This causes us to rejoin the ui thread,
             withContext(Dispatchers.Main) {
 
-                // Update the button color.
-                viewModel.buttonColor = color
+                // Update the button color in the view model.
+                viewModel.buttonBackgroundColor = color
 
-                "getWordColorInBackground() Button Color = ${viewModel.buttonColor.color()} ".logInfo()
+                viewModel.buttonTextColor = Consts.TEXT_COLOR
+
+                "getWordColorInBackground() Button Color = ${viewModel.buttonBackgroundColor.color()} ".logInfo()
                 "getWordColorInBackground() finished.".logVerbose()
 
             }
@@ -90,6 +93,10 @@ class CoHelper (var viewModel: ViewModel)
         if (bj?.isActive?:false) {
             return
         }
+
+        // ***************************************************************** //
+        "Switching execution to the background thread ...".logInfo()
+        // ***************************************************************** //
 
         "BackgroundTask started.".logVerbose()
         "BackgroundTask Setting button color ...".logVerbose()

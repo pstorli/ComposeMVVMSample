@@ -12,7 +12,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import com.pstorli.composemvvmsample.model.ViewModel
 import com.pstorli.composemvvmsample.util.Consts.FONT_SIZE
-import com.pstorli.composemvvmsample.util.Consts.TEXT_COLOR
+import com.pstorli.composemvvmsample.util.Consts.TEXT_START_COLOR
 
 @Composable
 fun StartScreen (viewModel: ViewModel, modifier: Modifier = Modifier)
@@ -31,8 +31,8 @@ fun StartScreen (viewModel: ViewModel, modifier: Modifier = Modifier)
 
             // Handle button text and button backgriound color
             colors = ButtonDefaults.buttonColors (
-                contentColor    = TEXT_COLOR,                            // text
-                containerColor  = Color (viewModel.buttonColor.value)    // background
+                contentColor    = TEXT_START_COLOR,                            // text
+                containerColor  = Color (viewModel.buttonBackgroundColor.value)    // background
 
             ),
             contentPadding  = ButtonDefaults.ButtonWithIconContentPadding)
@@ -40,7 +40,7 @@ fun StartScreen (viewModel: ViewModel, modifier: Modifier = Modifier)
             Text (
                 // From file strings.xml
                 text     = viewModel.buttonText,
-                color    = TEXT_COLOR,
+                color    = viewModel.buttonTextColor,
                 fontSize = FONT_SIZE,
                 modifier = modifier
             )

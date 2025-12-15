@@ -134,6 +134,18 @@ fun Context.toggleDarkMode () {
 }
 
 /**
+ * Retruns correctcolor based on darek mode.
+ */
+fun Context.darkChoice (light: Color, dark: Color): Color {
+    if (inDarkMode ()) {
+        return dark
+    }
+    else {
+        return light
+    }
+}
+
+/**
  * Are we in night/dark mode?
  */
 fun Context.inDarkMode (): Boolean {

@@ -30,6 +30,7 @@ object Consts {
 
     val FONT_SIZE   : TextUnit                  = 28.sp
 
+    val TEXT_START_COLOR                        = Color.White
     val TEXT_COLOR                              = Color.Black
 
     val MIN_DELAY                               = 333

@@ -8,6 +8,7 @@ import androidx.lifecycle.AndroidViewModel
 import com.pstorli.composemvvmsample.R
 import com.pstorli.composemvvmsample.util.Prefs
 import androidx.compose.ui.graphics.Color
+import com.pstorli.composemvvmsample.util.Consts
 
 class ViewModel (val app: Application) : AndroidViewModel (app)
 {
@@ -33,10 +34,13 @@ class ViewModel (val app: Application) : AndroidViewModel (app)
     var backColor by mutableStateOf<Color>(Color.White)
 
     // The button background color.
-    var buttonColor by mutableStateOf<Color>(Color.Green)
+    var buttonBackgroundColor by mutableStateOf<Color>(Color.Blue)
 
     // The button text.
     var buttonText by mutableStateOf<String>(app.resources.getText(R.string.start).toString())
+
+    // the button text color.
+    var buttonTextColor by mutableStateOf<Color>(Consts.TEXT_START_COLOR)
 
     // /////////////////////////////////////////////////////////////////////////////////////////////
     // Init things
