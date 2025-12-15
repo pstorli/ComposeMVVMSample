@@ -8,7 +8,7 @@ class VMHelper (var viewModel: ViewModel)
     // Vars
     // /////////////////////////////////////////////////////////////////////////////////////////////
 
-    // Used to run coroutines in the background.
+    // Used to run coroutines in the back.
     var ch   = CoHelper (viewModel)
 
     // /////////////////////////////////////////////////////////////////////////////////////////////
@@ -29,23 +29,23 @@ class VMHelper (var viewModel: ViewModel)
         if (viewModel.running) {
             // Start color blaster class
 
-            // Make sure that background thread running.
+            // Make sure that back thread running.
             // This task throws out random colors at random times.
             // In this app it is simulatinmg outside data trickling in.
-            ch.startBackgroundTask()
+            ch.startBackTask()
 
-            // Pressing button now starts background color task.
+            // Pressing button now starts back color task.
             word = viewModel.app.getText(R.string.stop).toString()
         }
         else {
-            // Pressing button now stops background color task.
+            // Pressing button now stops back color task.
             word = viewModel.app.getText(R.string.start).toString()
         }
 
         // set the button text.
-        viewModel.buttonText  = word
+        viewModel.btnText  = word
 
-        // get word color in background.
-        ch.getWordColorInBackground (word)
+        // get word color in back.
+        ch.getWordColorInBack (word)
     }
 }

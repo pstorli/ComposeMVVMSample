@@ -2,8 +2,6 @@ package com.pstorli.composemvvmsample.util
 
 import android.util.Log
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.unit.TextUnit
-import androidx.compose.ui.unit.sp
 
 /**
  * The main reason to use constants, is
@@ -27,11 +25,6 @@ object Consts {
     val TAG_NAME                                = "MyConsole"
 
     val VERBOSE                                 = false
-
-    val FONT_SIZE   : TextUnit                  = 28.sp
-
-    val TEXT_START_COLOR                        = Color.White
-    val TEXT_COLOR                              = Color.Black
 
     val MIN_DELAY                               = 333
 
@@ -141,11 +134,11 @@ object Consts {
      * Create a random light color, above  128-256
      * each red, green and blue value4 above 128
      */
-    fun randomLightColor (): Color
+    fun randomColor (): Color
     {
-        val red     = rndNum (128, 255)
-        val green   = rndNum (128, 255)
-        val blue    = rndNum (128, 255)
+        val red     = rndNum (0, 255)
+        val green   = rndNum (0, 255)
+        val blue    = rndNum (0, 255)
 
         return Color (red, green, blue)
     }

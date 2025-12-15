@@ -5,11 +5,11 @@ import com.pstorli.composemvvmsample.R
 import com.pstorli.composemvvmsample.darkChoice
 import com.pstorli.composemvvmsample.model.ViewModel
 import com.pstorli.composemvvmsample.getString
-import com.pstorli.composemvvmsample.inDarkMode
 
 /**
  * This class routes requests for data to the correct repository.
  * This class is also a singleton.
+ *
  */
 class Repo (var viewModel: ViewModel)
 {

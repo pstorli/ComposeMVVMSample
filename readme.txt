@@ -16,8 +16,8 @@ communication and usage.
 
 App consists of a button,
 that when pressed, causes a
-a background co-routine to
+a back co-routine to
 peridically updates the
-background color of the screen,
+back color of the screen,
 until the button is pressed again.
  

@@ -15,28 +15,32 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.Dp
+import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
-import com.pstorli.composemvvmsample.util.Consts.TEXT_COLOR
+import androidx.compose.ui.unit.sp
 import com.pstorli.pokerpic.ui.composeables.core.Pic
 
-val DEFAULT_ELEVATION_VAL_DP            = 10.dp
-val DISABLED_ELEVATION_VAL_DP           = 0.dp
-val PRESSED_ELEVATION_VAL_DP            = 15.dp
+val DEFAULT_ELEVATION_VAL_DP                = 10.dp
+val DISABLED_ELEVATION_VAL_DP               = 0.dp
+val PRESSED_ELEVATION_VAL_DP                = 15.dp
 
-val BORDER_SZ_DP                        = 2.dp
-val BTN_MIN_WIDTH_DP                    = 48.dp
-val BTN_PADDING_DP                      = 4.dp
-val ROUNDED_CORNER_PCT_VAL              = 20
+val BORDER_SZ_DP                            = 2.dp
+val BTN_MIN_WIDTH_DP                        = 48.dp
+val BTN_PADDING_DP                          = 4.dp
+val ROUNDED_CORNER_PCT_VAL                  = 20
+val PADDING                                  = 4.dp
 
 @Composable
 fun OutlinedButton (
     name: String = NO_TEXT,
     resId: Int=ZERO,
     imageSizeDp: Dp?=null,
-    textColor: Color = if(isSystemInDarkTheme()) Color.White else TEXT_COLOR,
+    textColor: Color = if(isSystemInDarkTheme()) Color.White else Color.Black,
     tintColor: Color=Color.Black,
-    backColor: Color=if(isSystemInDarkTheme()) TEXT_COLOR else Color.White,
+    backColor: Color=if(isSystemInDarkTheme()) Color.Black else Color.White,
     borderColor: Color=MaterialTheme.colorScheme.outline,
+    fontSize: TextUnit = 32.sp,
+    padding: Dp = 4.dp,
     onClick: (Int) -> Unit) {
 
     OutlinedButton(
@@ -66,7 +70,11 @@ fun OutlinedButton (
             Pic (resId=resId, sizeDp=imageSizeDp, showBorder=false, backColor=backColor, tintColor=tintColor)
         }
         else {
-            Text (text = name, color = textColor, modifier = Modifier.padding(4.dp))
+            Text (
+                text     = name,
+                color    = textColor,
+                modifier = Modifier.padding (padding),
+                fontSize = fontSize)
         }
     }
 }
