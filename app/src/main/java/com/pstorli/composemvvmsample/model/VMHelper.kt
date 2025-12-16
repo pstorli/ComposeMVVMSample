@@ -29,7 +29,7 @@ class VMHelper (var viewModel: ViewModel)
         // toggle runninmg state
         viewModel.running = !viewModel.running
 
-        // Are we running?
+        // Button text.
         var word: String
 
         // Are we running?
