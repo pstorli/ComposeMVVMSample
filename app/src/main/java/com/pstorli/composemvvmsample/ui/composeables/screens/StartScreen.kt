@@ -16,6 +16,8 @@ fun StartScreen (viewModel: ViewModel, modifier: Modifier = Modifier)
     // Make button appear center screen.
     Box (
         // Note, we set the back window color here.
+        // This line both sets the background color, and listens for
+        // any future changes in the background color in the viewModel
         modifier             = Modifier.fillMaxSize().background (viewModel.backColor),
         contentAlignment     = Alignment.Center)
     {
@@ -28,6 +30,7 @@ fun StartScreen (viewModel: ViewModel, modifier: Modifier = Modifier)
 
             // Toggle running state when clicked
             onClick     = {
+                // Tell the view model to toggle the running state.
                 viewModel.vh.toggleRunning()
             })
     }

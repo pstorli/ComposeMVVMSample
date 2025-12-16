@@ -12,6 +12,26 @@ import androidx.compose.ui.graphics.Color
 import com.pstorli.composemvvmsample.model.ViewModel
 import com.pstorli.composemvvmsample.util.Consts
 
+/**
+ * A place to put class extensions.
+ *
+A class extension allows you to add functionality to a class that it does not have. For example to add easy exception logging,
+
+The class, a period, then the function namespace
+
+Like this:
+
+fun Exception.logError ()
+{
+    Consts.logError (this.toString())
+}
+
+// This is how we use it.
+catch (ex: Exception) {
+    ex.logError()
+}
+**/
+
 // *********************************************************************************************
 // Extension Log helper functions
 // *********************************************************************************************

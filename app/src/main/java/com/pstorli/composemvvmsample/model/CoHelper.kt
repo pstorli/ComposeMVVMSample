@@ -19,6 +19,14 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import kotlin.coroutines.cancellation.CancellationException
 
+/**
+ * This class is used to spin off co-routines which call
+ * long running functions in the Repo.kt class
+ * NOTE: The repo class is private, we don't want it being
+ * used by anyone but this class, which knows how to launch
+ * coroutines.
+ */
+
 class CoHelper (var viewModel: ViewModel)
 {
     // Our continual back task.
@@ -48,8 +56,8 @@ class CoHelper (var viewModel: ViewModel)
      * routine not hang up the ui threead.
      */
     @Suppress("unused")
-    fun getWordColorInBack (word: String) {
-        "getWordColorInBack() started ... ".logVerbose()
+    fun getWordColorInBackground (word: String) {
+        "getWordColorInBackground() started ... ".logVerbose()
 
         viewModel.viewModelScope.launch {
             // Get the game, the whole enchilada.
@@ -68,8 +76,8 @@ class CoHelper (var viewModel: ViewModel)
                 // Update the button color in the view model.
                 viewModel.btnBackColor = color
 
-                "getWordColorInBack() Button Color = ${viewModel.btnBackColor.color()} ".logInfo()
-                "getWordColorInBack() finished.".logVerbose()
+                "getWordColorInBackground() Button Color = ${viewModel.btnBackColor.color()} ".logInfo()
+                "getWordColorInBackground() finished.".logVerbose()
 
             }
         }
@@ -85,7 +93,7 @@ class CoHelper (var viewModel: ViewModel)
      * routine not hang up the uio threead.
      */
     @Suppress("unused")
-    fun startBackTask () {
+    fun startBackgroundTask () {
         // Stop it!
         if (!viewModel.running) {
             bj = null
@@ -101,8 +109,8 @@ class CoHelper (var viewModel: ViewModel)
         "Switching execution to the back thread ...".logInfo()
         // ***************************************************************** //
 
-        "BackTask started.".logVerbose()
-        "BackTask Setting button color ...".logVerbose()
+        "BackgroundTask started.".logVerbose()
+        "BackgroundTask Setting button color ...".logVerbose()
 
         // Launch the coroutine and keep track of task.
         bj = viewModel.viewModelScope.launch {
@@ -114,11 +122,11 @@ class CoHelper (var viewModel: ViewModel)
                     if (viewModel.running) {
                         // Perform the back work here.
                         // NOTE: Any suspending function (like delay) checks for cancellation automatically.
-                        "BackTask running...".logVerbose()
+                        "BackgroundTask running...".logVerbose()
 
                         // Wait 1 - 5 seconds
                         val time = (Consts.rndNum(MIN_DELAY, MAX_DELAY)).toLong()
-                        "BackTask Delaying: $time".logVerbose()
+                        "BackgroundTask Delaying: $time".logVerbose()
 
                         delay(time)
 
@@ -126,23 +134,23 @@ class CoHelper (var viewModel: ViewModel)
                         viewModel.backColor = randomColor()
 
                         // Write color change to log.
-                        "BackTask Back color set to: ${viewModel.backColor.color()} ".logInfo()
+                        "BackgroundTask Back color set to: ${viewModel.backColor.color()} ".logInfo()
                     }
                     else {
-                        "BackTask Cancelled".logWarning()
+                        "BackgroundTask Cancelled".logWarning()
                     }
                 }
                 catch (e: CancellationException) {
                     // Re-throw CancellationException to propagate cancellation
-                    "BackTask CancellationException in back task: ${e.message}".logError(e)
+                    "BackgroundTask CancellationException in back task: ${e.message}".logError(e)
                     viewModel.running = false
                     throw e
                 }
                 catch (e: Exception) {
                     viewModel.running = false
                     // Handle other exceptions (e.g., network error)
-                    "BackTask Error in back task: ${e.message}".logError(e)
-                    "BackTask Delaying 5000L millis".logVerbose()
+                    "BackgroundTask Error in back task: ${e.message}".logError(e)
+                    "BackgroundTask Delaying 5000L millis".logVerbose()
                     delay(5000L) // Wait before retrying
                 }
             } while (viewModel.running)
@@ -151,7 +159,7 @@ class CoHelper (var viewModel: ViewModel)
             bj = null
 
             // We're done.
-            "BackTask finished.".logVerbose()
+            "BackgroundTask finished.".logVerbose()
         }
     }
 }

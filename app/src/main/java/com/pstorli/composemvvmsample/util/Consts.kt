@@ -4,6 +4,10 @@ import android.util.Log
 import androidx.compose.ui.graphics.Color
 
 /**
+ * A place to put project constants.
+ */
+
+/**
  * The main reason to use constants, is
  * that we can keep everyone in agreement -
  * even it is wrong, we are all wrong and if

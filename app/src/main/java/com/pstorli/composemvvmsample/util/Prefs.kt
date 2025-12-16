@@ -4,6 +4,10 @@ import android.app.Application
 import android.content.Context
 import android.content.SharedPreferences
 
+/**
+ * This class can be used to store and retrive data that persists, even when app and phone are turned off. The only way to “clean” or “clear” the preference data is by un-installing app.
+ */
+
 class Prefs (application: Application) {
     // *********************************************************************************************
     // EmoDS Vars
@@ -92,7 +96,7 @@ class Prefs (application: Application) {
         putInt (name, value.size)
         var pos=0
         for (item in value.iterator()) {
-            editor.putString(name+pos, item.toString())
+            editor.putString(name+pos, item)
             editor.commit()
             pos++
         }

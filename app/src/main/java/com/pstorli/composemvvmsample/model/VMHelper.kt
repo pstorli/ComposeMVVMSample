@@ -32,7 +32,7 @@ class VMHelper (var viewModel: ViewModel)
             // Make sure that back thread running.
             // This task throws out random colors at random times.
             // In this app it is simulatinmg outside data trickling in.
-            ch.startBackTask()
+            ch.startBackgroundTask()
 
             // Pressing button now starts back color task.
             word = viewModel.app.getText(R.string.stop).toString()
@@ -46,6 +46,6 @@ class VMHelper (var viewModel: ViewModel)
         viewModel.btnText  = word
 
         // get word color in back.
-        ch.getWordColorInBack (word)
+        ch.getWordColorInBackground (word)
     }
 }
