@@ -11,7 +11,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.ui.Modifier
 import com.pstorli.composemvvmsample.model.ViewModel
 import com.pstorli.composemvvmsample.ui.composeables.screens.StartScreen
-import com.pstorli.composemvvmsample.ui.theme.ComposeMVVMSampleTheme
+import com.pstorli.composemvvmsample.ui.theme.CurrentTheme
 
 class MainActivity : ComponentActivity() {
     val viewModel: ViewModel by viewModels()
@@ -19,11 +19,11 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        "MainActivity.onCreate Started!".logVerbose()
+        "MainActivity.onCreate Started!".logInfo()
 
         enableEdgeToEdge()
         setContent {
-            ComposeMVVMSampleTheme {
+            CurrentTheme {
                 Scaffold (modifier = Modifier.fillMaxSize()) { innerPadding ->
                     StartScreen (
                         viewModel = viewModel,
