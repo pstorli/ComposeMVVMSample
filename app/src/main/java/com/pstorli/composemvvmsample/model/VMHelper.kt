@@ -2,6 +2,13 @@ package com.pstorli.composemvvmsample.model
 
 import com.pstorli.composemvvmsample.R
 
+/**
+ * This class is used for logic that is short lived,
+ * as we are on the ui thread here. The reason is that
+ * I like to keep the viewModel as solely a data repository,
+ * and as little logic, functions, as possible.
+ */
+
 class VMHelper (var viewModel: ViewModel)
 {
     // /////////////////////////////////////////////////////////////////////////////////////////////
